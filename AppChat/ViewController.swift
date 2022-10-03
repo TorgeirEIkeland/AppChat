@@ -14,9 +14,9 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
     }
     var testArray = ["1", "2", "3", "4"]
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ChatCell", for: indexPath) as! ChatTableViewCell
-        cell.label.text = testArray[indexPath.row]
-        return cell
+  //      let cell = tableView.dequeueReusableCell(withIdentifier: "ChatCell", for: indexPath) as! ChatTableViewCell
+  //      cell.label.text = testArray[indexPath.row]
+        return UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -41,7 +41,7 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
         
         
         view.addSubview(chatTableView)
-        chatTableView.register(ChatTableViewCell.self, forCellReuseIdentifier: "ChatCell")
+//        chatTableView.register(ChatTableViewCell.self, forCellReuseIdentifier: "ChatCell")
         chatTableView.backgroundColor = UIColor(r: 61, g: 91, b: 151)
 
         chatTableView.fillSuperview()
@@ -49,8 +49,8 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
     }
 
     @objc func handleNewMessage() {
-        let newMessageController = NewMessageController()
-        navigationController?.pushViewController(newMessageController, animated: true)
+//        let newMessageController = NewMessageController()
+//        navigationController?.pushViewController(newMessageController, animated: true)
     }
     
     func checkIfUserIsLoggedIn(){

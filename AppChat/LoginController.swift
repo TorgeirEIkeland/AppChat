@@ -50,7 +50,6 @@ class LoginController: UIViewController {
         
         Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
             if error != nil {
-                print(error)
                 return
             }
             //Succesfull login
