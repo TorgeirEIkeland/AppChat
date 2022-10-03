@@ -12,12 +12,17 @@ class NewTableViewCell: UITableViewCell {
     let loggedInUser: String? = "Torgeir"
     lazy var sender: String? = "No sender" {
         didSet {
-            setChatBoxSide()
+                self.setChatBoxSide()
+            print("😀 loggedInUser changed")
+
+            
         }
     }
     lazy var message: String? = "No message" {
         didSet {
             messageLabel.text = message
+            print("😀 messageLabel text change")
+
         }
     }
     
@@ -48,8 +53,20 @@ class NewTableViewCell: UITableViewCell {
         return view
     }()
     
+    let chatBoxViewRight: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(r: 80, g: 101, b: 161)
+        view.layer.cornerRadius = 5
+        view.layer.masksToBounds = true
+        
+        
+        return view
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        print("😀 new view cell")
         backgroundColor = UIColor(r: 80, g: 101, b: 161)
         
         contentView.addSubview(containerView)
@@ -75,6 +92,8 @@ class NewTableViewCell: UITableViewCell {
         containerView.constrainWidth(
             constant: contentView.frame.width - 40
         )
+        print("😀 ContainerView settup")
+
         
         
         //ChatBoxView gets constraints from sender variable when data has been changed
@@ -93,7 +112,8 @@ class NewTableViewCell: UITableViewCell {
             )
         )
         messageLabel.preferredMaxLayoutWidth = contentView.frame.width - 40
-        
+        print("😀 messageLabel settup")
+
         
     }
     
@@ -114,6 +134,8 @@ class NewTableViewCell: UITableViewCell {
                     right: 10
                 )
             )
+            print("😀 chatBoxView Left")
+
         } else {
             //ChatBox on left side
             chatBoxView.backgroundColor = .lightGray
@@ -130,6 +152,8 @@ class NewTableViewCell: UITableViewCell {
                     right: 10
                 )
             )
+            
+            print("😀 chatBoxView Right")
         }
     }
     

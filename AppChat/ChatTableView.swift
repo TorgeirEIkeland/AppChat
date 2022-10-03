@@ -24,6 +24,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         let cell = tableView.dequeueReusableCell(withIdentifier: "ChatCell", for: indexPath) as! NewTableViewCell
         cell.sender = messageList[indexPath.row].sender
         cell.message = messageList[indexPath.row].message
+        
         return cell
     }
     
@@ -129,7 +130,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         )
         chatTextFieldContainer.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
-
+        
         
         
         chatTextField.anchor(
@@ -186,3 +187,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     
 }
 
+struct Message {
+    let sender: String
+    let message: String
+}

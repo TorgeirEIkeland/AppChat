@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
-        window?.rootViewController = UINavigationController(rootViewController: ChatTableView())
+        window?.rootViewController = UINavigationController(rootViewController: ChatViewController())
         
         FirebaseApp.configure()
         return true
