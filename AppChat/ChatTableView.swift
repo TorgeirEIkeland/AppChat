@@ -8,11 +8,12 @@
 import UIKit
 class ChatViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var messageList: [Message] = [Message(sender: "Torgeir", message: "Melding fra Torgeir"), Message(sender: "Lasse", message: "Melding fra Lasse"),Message(sender: "Torgeir", message: "Melding fra Torgeir"), Message(sender: "Lasse", message: "Melding fra Lasse"),Message(sender: "Torgeir", message: "Torgeir har bestemt seg for å sende en litt lengre medlig nå"), Message(sender: "Lasse", message: "Melding fra Lasse")]{
+    var messageList: [Message] = [] {
         didSet {
             self.chatTableView.reloadData()
         }
     }
+    
     var loggedInUser: String = "Torgeir"
     
     
@@ -22,6 +23,10 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ChatCell", for: indexPath) as! NewTableViewCell
+        
+        cell.setupViews()
+        
+        
         cell.sender = messageList[indexPath.row].sender
         cell.message = messageList[indexPath.row].message
         
@@ -105,6 +110,15 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         chatTextFieldContainer.addSubview(verticalSeperatorLine)
         
         settupViewConstraints()
+        
+        messageList = [
+            Message(sender: "Torgeir", message: "Melding fra Torgeir"),
+            Message(sender: "Lasse", message: "Melding fra Lasse"),
+            Message(sender: "Torgeir", message: "Melding fra Torgeir"),
+            Message(sender: "Lasse", message: "Melding fra Lasse"),
+            Message(sender: "Torgeir", message: "Torgeir har bestemt seg for å sende en litt lengre medlig nå"),
+            Message(sender: "Lasse", message: "Melding fra Lasse")
+        ]
         
     }
     

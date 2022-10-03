@@ -63,18 +63,31 @@ class NewTableViewCell: UITableViewCell {
         return view
     }()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+    func setupViews() {
         print("😀 new view cell")
         backgroundColor = UIColor(r: 80, g: 101, b: 161)
-        
+
         contentView.addSubview(containerView)
         containerView.addSubview(chatBoxView)
         chatBoxView.addSubview(messageLabel)
-        
+
         viewSettup()
-        
+    }
+    
+    func clearView() {
+        backgroundColor = UIColor(r: 80, g: 101, b: 161)
+
+        containerView.removeFromSuperview()
+        chatBoxView.removeFromSuperview()
+        messageLabel.removeFromSuperview()
+    }
+    
+    override func prepareForReuse() {
+        clearView()
+    }
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
     
     func viewSettup() {
