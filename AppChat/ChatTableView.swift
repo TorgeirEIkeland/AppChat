@@ -6,8 +6,7 @@
 //
 
 import UIKit
-class ChatViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
+class ChatViewController: UIViewController {
     var messageList: [Message] = [] {
         didSet {
             self.chatTableView.reloadData()
@@ -16,25 +15,11 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     var loggedInUser: String = "Torgeir"
     
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return messageList.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ChatCell", for: indexPath) as! NewTableViewCell
-        
-        cell.setupViews()
-        
-        
-        cell.sender = messageList[indexPath.row].sender
-        cell.message = messageList[indexPath.row].message
-        
-        return cell
-    }
+
     
     let chatTextFieldContainer: UIView = {
         let view = UIView()
+        view.backgroundColor = .white
         return view
     }()
     
@@ -66,13 +51,23 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @objc func sendChat() {
         //Upload message to server
-        print("send message")
-        messageList.append(
-            Message(
-                sender: loggedInUser,
-                message: chatTextField.text ?? ""
+       
+        
+        guard let message = chatTextField.text else {
+            print("message is corrupted")
+            return
+        }
+        if message != "" {
+            messageList.append(
+                Message(
+                    sender: loggedInUser,
+                    message: message
+                )
             )
-        )
+            print("send message")
+            return
+        }
+        print("Empty message")
     }
     
     let seperatorLine: UIView = {
@@ -99,7 +94,17 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(r: 80, g: 101, b: 161)
+        title = "Lasse"
+        
+        addAllSubViews()
+        
+        settupViewConstraints()
+        
+        loadMessages()
+    }
+    
+    func addAllSubViews() {
         
         view.addSubview(chatTableView)
         view.addSubview(chatTextFieldContainer)
@@ -109,25 +114,20 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         chatTextFieldContainer.addSubview(seccondSeperatorLine)
         chatTextFieldContainer.addSubview(verticalSeperatorLine)
         
-        settupViewConstraints()
-        
-        messageList = [
-            Message(sender: "Torgeir", message: "Melding fra Torgeir"),
-            Message(sender: "Lasse", message: "Melding fra Lasse"),
-            Message(sender: "Torgeir", message: "Melding fra Torgeir"),
-            Message(sender: "Lasse", message: "Melding fra Lasse"),
-            Message(sender: "Torgeir", message: "Torgeir har bestemt seg for å sende en litt lengre medlig nå"),
-            Message(sender: "Lasse", message: "Melding fra Lasse")
-        ]
-        
     }
+    
     
     func settupViewConstraints() {
         
         chatTableView.register(
-            NewTableViewCell.self,
-            forCellReuseIdentifier: "ChatCell"
+            RecieverCell.self,
+            forCellReuseIdentifier: "RecieverCell"
         )
+        chatTableView.register(
+            SenderCell.self,
+            forCellReuseIdentifier: "SenderCell"
+        )
+        chatTableView.allowsSelection = false
         
         chatTableView.anchor(
             top: view.topAnchor,
@@ -199,9 +199,70 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         verticalSeperatorLine.widthAnchor.constraint(equalToConstant: 1).isActive = true
     }
     
+    func deleteAlert(indexPath: IndexPath) {
+        print(indexPath)
+        
+        
+        let alert = UIAlertController(title: "DELETE MESSAGE", message: "Are you sure you want to delete this message?", preferredStyle: .alert)
+        
+        let yesAction = UIAlertAction(
+            title: "YES",
+            style: UIAlertAction.Style.default
+        ) { UIAlertAction in
+            
+            print("Yes Pressed")
+            self.messageList.remove(at: indexPath.row)
+        }
+        
+        let noAction = UIAlertAction(
+            title: "NO",
+            style: UIAlertAction.Style.default
+        ) { UIAlertAction in
+            print("No pressed")
+        }
+        
+        alert.addAction(yesAction)
+        alert.addAction(noAction)
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func loadMessages() {
+        messageList = [
+            Message(sender: "Torgeir", message: "Melding fra Torgeir"),
+            Message(sender: "Lasse", message: "Melding fra Lasse"),
+            Message(sender: "Torgeir", message: "Melding fra Torgeir"),
+            Message(sender: "Lasse", message: "Melding fra Lasse"),
+            Message(sender: "Torgeir", message: "Torgeir har bestemt seg for å sende en litt lengre medlig nå"),
+            Message(sender: "Lasse", message: "jshfgjkdhfkjhgsldafkjgsliuhfglskhkughkduhfgshdfjkghdjkhgjkshdjkghsdkfjhgdhfgkjhdkjfghkjdfhgkjhdjkghdkghkdhgkjhdgkhdfkghkdjfhkdhfgkjhdkfghkjdhfkghdfjkghkj")
+        ]
+    }
+    
 }
 
-struct Message {
-    let sender: String
-    let message: String
+extension ChatViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return messageList.count
+    }
+}
+
+extension ChatViewController: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let message = messageList[indexPath.row]
+        
+        if message.sender == loggedInUser {
+            let recieverCell = tableView.dequeueReusableCell(withIdentifier: "RecieverCell", for: indexPath) as! RecieverCell
+            recieverCell.indexPath = indexPath
+            recieverCell.setupViews()
+            recieverCell.message = messageList[indexPath.row].message
+            return recieverCell
+        } else {
+            let senderCell = tableView.dequeueReusableCell(withIdentifier: "SenderCell", for: indexPath) as! SenderCell
+            senderCell.indexPath = indexPath
+            senderCell.setupViews()
+            senderCell.message = messageList[indexPath.row].message
+            return senderCell
+        }
+    }
 }

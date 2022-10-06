@@ -8,6 +8,7 @@
 import UIKit
 import Firebase
 import FirebaseAuth
+import FirebaseDatabase
 
 class LoginController: UIViewController {
     
@@ -70,7 +71,8 @@ class LoginController: UIViewController {
             if error != nil {
                 print("Something went wrong creating user")
             }
-            let ref = FirebaseDatabase.Database.database().reference(fromURL: "https://chatapp-las-default-rtdb.europe-west1.firebasedatabase.app")
+            
+            let ref = Database.database().reference(fromURL: "https://chatapp-las-default-rtdb.europe-west1.firebasedatabase.app")
             
             guard let uid = result?.user.uid else {
                 return
