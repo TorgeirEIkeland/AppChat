@@ -10,6 +10,7 @@ class ChatViewController: UIViewController {
     var messageList: [Message] = [] {
         didSet {
             self.chatTableView.reloadData()
+            self.chatTableView.scrollToBottom(animated: false)
         }
     }
     
@@ -102,6 +103,29 @@ class ChatViewController: UIViewController {
         settupViewConstraints()
         
         loadMessages()
+        
+        // call the 'keyboardWillShow' function when the view controller receive the notification that a keyboard is going to be shown
+            NotificationCenter.default.addObserver(self, selector: #selector(ChatViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+          
+              // call the 'keyboardWillHide' function when the view controlelr receive notification that keyboard is going to be hidden
+            NotificationCenter.default.addObserver(self, selector: #selector(ChatViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+            
+        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+           // if keyboard size is not available for some reason, dont do anything
+           return
+        }
+      
+      // move the root view up by the distance of keyboard height
+      self.view.frame.origin.y = 0 - keyboardSize.height
+    }
+
+    @objc func keyboardWillHide(notification: NSNotification) {
+      // move back the root view origin to zero
+      self.view.frame.origin.y = 0
     }
     
     func addAllSubViews() {
@@ -234,7 +258,32 @@ class ChatViewController: UIViewController {
             Message(sender: "Torgeir", message: "Melding fra Torgeir"),
             Message(sender: "Lasse", message: "Melding fra Lasse"),
             Message(sender: "Torgeir", message: "Torgeir har bestemt seg for å sende en litt lengre medlig nå"),
-            Message(sender: "Lasse", message: "jshfgjkdhfkjhgsldafkjgsliuhfglskhkughkduhfgshdfjkghdjkhgjkshdjkghsdkfjhgdhfgkjhdkjfghkjdfhgkjhdjkghdkghkdhgkjhdgkhdfkghkdjfhkdhfgkjhdkfghkjdhfkghdfjkghkj")
+            Message(sender: "Lasse", message: "jshfgjkdhfkjhgsldafkjgsliuhfglskhkughkduhfgshdfjkghdjkhgjkshdjkghsdkfjhgdhfgkjhdkjfghkjdfhgkjhdjkghdkghkdhgkjhdgkhdfkghkdjfhkdhfgkjhdkfghkjdhfkghdfjkghkj"),
+            Message(sender: "Torgeir", message: "Melding fra Torgeir"),
+            Message(sender: "Lasse", message: "Melding fra Lasse"),
+            Message(sender: "Torgeir", message: "Melding fra Torgeir"),
+            Message(sender: "Lasse", message: "Melding fra Lasse"),
+            Message(sender: "Torgeir", message: "Torgeir har bestemt seg for å sende en litt lengre medlig nå"),
+            Message(sender: "Lasse", message: "jshfgjkdhfkjhgsldafkjgsliuhfglskhkughkduhfgshdfjkghdjkhgjkshdjkghsdkfjhgdhfgkjhdkjfghkjdfhgkjhdjkghdkghkdhgkjhdgkhdfkghkdjfhkdhfgkjhdkfghkjdhfkghdfjkghkj"),
+            Message(sender: "Torgeir", message: "Melding fra Torgeir"),
+            Message(sender: "Lasse", message: "Melding fra Lasse"),
+            Message(sender: "Torgeir", message: "Melding fra Torgeir"),
+            Message(sender: "Lasse", message: "Melding fra Lasse"),
+            Message(sender: "Torgeir", message: "Torgeir har bestemt seg for å sende en litt lengre medlig nå"),
+            Message(sender: "Lasse", message: "jshfgjkdhfkjhgsldafkjgsliuhfglskhkughkduhfgshdfjkghdjkhgjkshdjkghsdkfjhgdhfgkjhdkjfghkjdfhgkjhdjkghdkghkdhgkjhdgkhdfkghkdjfhkdhfgkjhdkfghkjdhfkghdfjkghkj"),
+            Message(sender: "Torgeir", message: "Melding fra Torgeir"),
+            Message(sender: "Lasse", message: "Melding fra Lasse"),
+            Message(sender: "Torgeir", message: "Melding fra Torgeir"),
+            Message(sender: "Lasse", message: "Melding fra Lasse"),
+            Message(sender: "Torgeir", message: "Torgeir har bestemt seg for å sende en litt lengre medlig nå"),
+            Message(sender: "Lasse", message: "jshfgjkdhfkjhgsldafkjgsliuhfglskhkughkduhfgshdfjkghdjkhgjkshdjkghsdkfjhgdhfgkjhdkjfghkjdfhgkjhdjkghdkghkdhgkjhdgkhdfkghkdjfhkdhfgkjhdkfghkjdhfkghdfjkghkj"),
+            Message(sender: "Torgeir", message: "Melding fra Torgeir"),
+            Message(sender: "Lasse", message: "Melding fra Lasse"),
+            Message(sender: "Torgeir", message: "Melding fra Torgeir"),
+            Message(sender: "Lasse", message: "Melding fra Lasse"),
+            Message(sender: "Torgeir", message: "Torgeir har bestemt seg for å sende en litt lengre medlig nå"),
+            Message(sender: "Lasse", message: "jshfgjkdhfkjhgsldafkjgsliuhfglskhkughkduhfgshdfjkghdjkhgjkshdjkghsdkfjhgdhfgkjhdkjfghkjdfhgkjhdjkghdkghkdhgkjhdgkhdfkghkdjfhkdhfgkjhdkfghkjdhfkghdfjkghkj"),
+            
         ]
     }
     
@@ -244,6 +293,18 @@ extension ChatViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return messageList.count
     }
+}
+
+extension UITableView {
+    func scrollToBottom(animated: Bool) {
+            
+            DispatchQueue.main.async {
+                let point = CGPoint(x: 0, y: self.contentSize.height + self.contentInset.bottom - self.frame.height)
+                if point.y >= 0 {
+                    self.setContentOffset(point, animated: animated)
+                }
+            }
+        }
 }
 
 extension ChatViewController: UITableViewDataSource {
