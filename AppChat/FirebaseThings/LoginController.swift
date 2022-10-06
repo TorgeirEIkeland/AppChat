@@ -134,9 +134,9 @@ class LoginController: UIViewController {
         imageView.image = UIImage(named: "gameofthrones_splash")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
+        
         return imageView
     }()
-    
     
     lazy var loginRegisterSegmentedControl: UISegmentedControl = {
         let sc = UISegmentedControl(items: ["Login", "Register"])
@@ -183,7 +183,17 @@ class LoginController: UIViewController {
         setupLoginRegisterButton()
         setupProfileImageView()
         setupLoginRegisterSegmentedControl()
+        
+        imageGestureRecognizer()
     }
+    
+    func imageGestureRecognizer() {
+        profileImageView.isUserInteractionEnabled = true
+        let imageTap = UITapGestureRecognizer(target: self, action: #selector(self.handleImageTap))
+        profileImageView.addGestureRecognizer(imageTap)
+    }
+    
+
     
     func setupLoginRegisterSegmentedControl() {
         loginRegisterSegmentedControl.centerXInSuperview()

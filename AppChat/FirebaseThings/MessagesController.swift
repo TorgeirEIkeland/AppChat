@@ -14,9 +14,15 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
     }
     var testArray = ["1", "2", "3", "4"]
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-  //      let cell = tableView.dequeueReusableCell(withIdentifier: "ChatCell", for: indexPath) as! ChatTableViewCell
-  //      cell.label.text = testArray[indexPath.row]
-        return UITableViewCell()
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "ChatCell", for: indexPath) as! ChatTableViewCell
+//        cell.label.text = testArray[indexPath.row]
+        let newCell = UITableViewCell()
+        let label = UILabel()
+        newCell.addSubview(label)
+        label.text = testArray[indexPath.row]
+        label.centerXInSuperview()
+        label.centerYInSuperview()
+        return newCell
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -32,11 +38,8 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("hello")
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
-        navigationItem.title = "PreLoadText"
-        let image = UIImage(systemName: "square.and.pencil")
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(handleNewMessage))
+        
+        addNavigationItems()
         checkIfUserIsLoggedIn()
         
         
@@ -47,10 +50,17 @@ class MessagesController: UIViewController, UITableViewDelegate, UITableViewData
         chatTableView.fillSuperview()
         
     }
+    
+    func addNavigationItems() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
+        navigationItem.title = "PreLoadText"
+        let image = UIImage(systemName: "square.and.pencil")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(handleNewMessage))
+    }
 
     @objc func handleNewMessage() {
-//        let newMessageController = NewMessageController()
-//        navigationController?.pushViewController(newMessageController, animated: true)
+        let newMessageController = NewMessageController()
+        navigationController?.pushViewController(newMessageController, animated: true)
     }
     
     func checkIfUserIsLoggedIn(){

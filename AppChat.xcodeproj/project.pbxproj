@@ -19,7 +19,7 @@
 		A71BE6CF28E59408000C18F4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A71BE6CE28E59408000C18F4 /* GoogleService-Info.plist */; };
 		A72C382E28EC381B00B858AD /* ChatBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72C382D28EC381B00B858AD /* ChatBubble.swift */; };
 		A730AC9F28E46229004CAC1B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A730AC9E28E46229004CAC1B /* AppDelegate.swift */; };
-		A730ACA328E46229004CAC1B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A730ACA228E46229004CAC1B /* ViewController.swift */; };
+		A730ACA328E46229004CAC1B /* MessagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A730ACA228E46229004CAC1B /* MessagesController.swift */; };
 		A730ACA828E4622A004CAC1B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A730ACA728E4622A004CAC1B /* Assets.xcassets */; };
 		A730ACAB28E4622A004CAC1B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A730ACA928E4622A004CAC1B /* LaunchScreen.storyboard */; };
 		A730ACB628E4622A004CAC1B /* AppChatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A730ACB528E4622A004CAC1B /* AppChatTests.swift */; };
@@ -27,6 +27,7 @@
 		A730ACC228E4622A004CAC1B /* AppChatUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A730ACC128E4622A004CAC1B /* AppChatUITestsLaunchTests.swift */; };
 		A730ACCF28E464B1004CAC1B /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A730ACCE28E464B1004CAC1B /* LoginController.swift */; };
 		A730ACD128E48911004CAC1B /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A730ACD028E48911004CAC1B /* UIView+Layout.swift */; };
+		A7D030B328EEF2D10039DC4F /* LoginController+Handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D030B228EEF2D10039DC4F /* LoginController+Handlers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,7 +59,7 @@
 		A72C382D28EC381B00B858AD /* ChatBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubble.swift; sourceTree = "<group>"; };
 		A730AC9B28E46229004CAC1B /* AppChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A730AC9E28E46229004CAC1B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A730ACA228E46229004CAC1B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		A730ACA228E46229004CAC1B /* MessagesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesController.swift; sourceTree = "<group>"; };
 		A730ACA728E4622A004CAC1B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A730ACAA28E4622A004CAC1B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A730ACB128E4622A004CAC1B /* AppChatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppChatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -68,6 +69,7 @@
 		A730ACC128E4622A004CAC1B /* AppChatUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppChatUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		A730ACCE28E464B1004CAC1B /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		A730ACD028E48911004CAC1B /* UIView+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
+		A7D030B228EEF2D10039DC4F /* LoginController+Handlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoginController+Handlers.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,9 +168,10 @@
 			isa = PBXGroup;
 			children = (
 				A730ACCE28E464B1004CAC1B /* LoginController.swift */,
-				A730ACA228E46229004CAC1B /* ViewController.swift */,
+				A730ACA228E46229004CAC1B /* MessagesController.swift */,
 				A71908EC28E6CF8600812C70 /* NewMessageController.swift */,
 				A71908EF28E6D8B600812C70 /* User.swift */,
+				A7D030B228EEF2D10039DC4F /* LoginController+Handlers.swift */,
 			);
 			path = FirebaseThings;
 			sourceTree = "<group>";
@@ -315,9 +318,10 @@
 				A730ACD128E48911004CAC1B /* UIView+Layout.swift in Sources */,
 				A71908ED28E6CF8600812C70 /* NewMessageController.swift in Sources */,
 				A72C382E28EC381B00B858AD /* ChatBubble.swift in Sources */,
-				A730ACA328E46229004CAC1B /* ViewController.swift in Sources */,
+				A730ACA328E46229004CAC1B /* MessagesController.swift in Sources */,
 				A730ACCF28E464B1004CAC1B /* LoginController.swift in Sources */,
 				A719A3C928ED88AF00FE7E25 /* RecieverCell.swift in Sources */,
+				A7D030B328EEF2D10039DC4F /* LoginController+Handlers.swift in Sources */,
 				A719A3CC28ED8DB100FE7E25 /* Message.swift in Sources */,
 				A719A3C728ED7F0200FE7E25 /* SenderCell.swift in Sources */,
 				A71908F428EAC50600812C70 /* ChatTableView.swift in Sources */,
