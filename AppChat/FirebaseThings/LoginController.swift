@@ -72,7 +72,7 @@ class LoginController: UIViewController {
                 print("Something went wrong creating user")
             }
             
-            let ref = Database.database().reference(fromURL: "https://chatapp-las-default-rtdb.europe-west1.firebasedatabase.app")
+            let ref = Database.database().reference()
             
             guard let uid = result?.user.uid else {
                 return

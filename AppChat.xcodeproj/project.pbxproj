@@ -27,7 +27,10 @@
 		A730ACC228E4622A004CAC1B /* AppChatUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A730ACC128E4622A004CAC1B /* AppChatUITestsLaunchTests.swift */; };
 		A730ACCF28E464B1004CAC1B /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A730ACCE28E464B1004CAC1B /* LoginController.swift */; };
 		A730ACD128E48911004CAC1B /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A730ACD028E48911004CAC1B /* UIView+Layout.swift */; };
+		A75C06E028F3FAD300C72040 /* UserMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75C06DF28F3FAD300C72040 /* UserMessageCell.swift */; };
+		A7ADE34328F69CF400385F46 /* ArcGIS in Frameworks */ = {isa = PBXBuildFile; productRef = A7ADE34228F69CF400385F46 /* ArcGIS */; };
 		A7D030B328EEF2D10039DC4F /* LoginController+Handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D030B228EEF2D10039DC4F /* LoginController+Handlers.swift */; };
+		A7D030B528EF02EA0039DC4F /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D030B428EF02EA0039DC4F /* UserTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,7 +72,9 @@
 		A730ACC128E4622A004CAC1B /* AppChatUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppChatUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		A730ACCE28E464B1004CAC1B /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		A730ACD028E48911004CAC1B /* UIView+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
+		A75C06DF28F3FAD300C72040 /* UserMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMessageCell.swift; sourceTree = "<group>"; };
 		A7D030B228EEF2D10039DC4F /* LoginController+Handlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoginController+Handlers.swift"; sourceTree = "<group>"; };
+		A7D030B428EF02EA0039DC4F /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +85,7 @@
 				A71BE6C928E59014000C18F4 /* FirebaseDatabase in Frameworks */,
 				A71BE6C728E59014000C18F4 /* FirebaseAuth in Frameworks */,
 				A71BE6CB28E59014000C18F4 /* FirebaseStorage in Frameworks */,
+				A7ADE34328F69CF400385F46 /* ArcGIS in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -169,7 +175,9 @@
 			children = (
 				A730ACCE28E464B1004CAC1B /* LoginController.swift */,
 				A730ACA228E46229004CAC1B /* MessagesController.swift */,
+				A75C06DF28F3FAD300C72040 /* UserMessageCell.swift */,
 				A71908EC28E6CF8600812C70 /* NewMessageController.swift */,
+				A7D030B428EF02EA0039DC4F /* UserTableViewCell.swift */,
 				A71908EF28E6D8B600812C70 /* User.swift */,
 				A7D030B228EEF2D10039DC4F /* LoginController+Handlers.swift */,
 			);
@@ -196,6 +204,7 @@
 				A71BE6C628E59014000C18F4 /* FirebaseAuth */,
 				A71BE6C828E59014000C18F4 /* FirebaseDatabase */,
 				A71BE6CA28E59014000C18F4 /* FirebaseStorage */,
+				A7ADE34228F69CF400385F46 /* ArcGIS */,
 			);
 			productName = AppChat;
 			productReference = A730AC9B28E46229004CAC1B /* AppChat.app */;
@@ -271,6 +280,7 @@
 			mainGroup = A730AC9228E46229004CAC1B;
 			packageReferences = (
 				A71BE6C528E59014000C18F4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				A7ADE34128F69CF400385F46 /* XCRemoteSwiftPackageReference "arcgis-runtime-ios" */,
 			);
 			productRefGroup = A730AC9C28E46229004CAC1B /* Products */;
 			projectDirPath = "";
@@ -319,11 +329,13 @@
 				A71908ED28E6CF8600812C70 /* NewMessageController.swift in Sources */,
 				A72C382E28EC381B00B858AD /* ChatBubble.swift in Sources */,
 				A730ACA328E46229004CAC1B /* MessagesController.swift in Sources */,
+				A7D030B528EF02EA0039DC4F /* UserTableViewCell.swift in Sources */,
 				A730ACCF28E464B1004CAC1B /* LoginController.swift in Sources */,
 				A719A3C928ED88AF00FE7E25 /* RecieverCell.swift in Sources */,
 				A7D030B328EEF2D10039DC4F /* LoginController+Handlers.swift in Sources */,
 				A719A3CC28ED8DB100FE7E25 /* Message.swift in Sources */,
 				A719A3C728ED7F0200FE7E25 /* SenderCell.swift in Sources */,
+				A75C06E028F3FAD300C72040 /* UserMessageCell.swift in Sources */,
 				A71908F428EAC50600812C70 /* ChatTableView.swift in Sources */,
 				A730AC9F28E46229004CAC1B /* AppDelegate.swift in Sources */,
 				A71908F028E6D8B700812C70 /* User.swift in Sources */,
@@ -670,6 +682,14 @@
 				minimumVersion = 9.0.0;
 			};
 		};
+		A7ADE34128F69CF400385F46 /* XCRemoteSwiftPackageReference "arcgis-runtime-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/esri/arcgis-runtime-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 100.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -687,6 +707,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A71BE6C528E59014000C18F4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
+		};
+		A7ADE34228F69CF400385F46 /* ArcGIS */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A7ADE34128F69CF400385F46 /* XCRemoteSwiftPackageReference "arcgis-runtime-ios" */;
+			productName = ArcGIS;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

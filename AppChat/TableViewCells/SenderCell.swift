@@ -6,18 +6,17 @@
 //
 
 import UIKit
+import Firebase
 
 class SenderCell: ChatBubble {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        print("SenderCell")
     }
-    
-
     
     override func chatBoxViewConstraints() {
         chatBoxView.backgroundColor = .lightGray
+        cornerBox.backgroundColor = .lightGray
         
         chatBoxView.centerYInSuperview()
         chatBoxView.anchor(
@@ -31,6 +30,21 @@ class SenderCell: ChatBubble {
                 bottom: 10,
                 right: 10
             )
+        )
+        
+        cornerBox.anchor(
+            top: nil,
+            leading: chatBoxView.leadingAnchor,
+            bottom: chatBoxView.bottomAnchor,
+            trailing: nil
+        )
+        
+        fromLabel.anchor(
+            top: chatBoxView.bottomAnchor,
+            leading: chatBoxView.leadingAnchor,
+            bottom: nil,
+            trailing: nil,
+            padding: .init(top: 8, left: 0, bottom: 0, right: 0)
         )
     }
     

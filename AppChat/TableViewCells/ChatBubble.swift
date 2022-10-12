@@ -6,8 +6,27 @@
 //
 
 import UIKit
+import Firebase
 
 class ChatBubble: UITableViewCell {
+    
+    
+    var mainMessage: Message? {
+        didSet {
+            setFromLabel()
+        }
+    }
+    
+    func setFromLabel() {
+        if let fromId = mainMessage?.fromId {
+            let ref = Firebase.Database.database().reference().child("users").child(fromId)
+            ref.observeSingleEvent(of: .value) { (snapshot) in
+                if let dictionary = snapshot.value as? [String: AnyObject] {
+                    self.fromLabel.text = dictionary["name"] as? String
+                }
+            }
+        }
+    }
     
     var indexPath = IndexPath()
     var message: String = "" {
@@ -38,12 +57,36 @@ class ChatBubble: UITableViewCell {
         return label
     }()
     
+    let fromLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Navn her"
+        
+        return label
+    }()
+    
+    let chatContainer: UIView = {
+        let view = UIView()
+        
+        return view
+    }()
+    
+    let cornerBox: UIView = {
+        let  view = UIView()
+        view.backgroundColor = UIColor(r: 0, g: 137, b: 249)
+        return view
+    }()
+    
+    
+    
     func setupViews() {
-        backgroundColor = UIColor(r: 80, g: 101, b: 161)
         
         contentView.addSubview(containerView)
+        containerView.addSubview(fromLabel)
+        containerView.addSubview(chatContainer)
         containerView.addSubview(chatBoxView)
         chatBoxView.addSubview(messageLabel)
+        chatContainer.addSubview(cornerBox)
+
         
         setupConstraints()
         chatTapGesture()
@@ -68,10 +111,20 @@ class ChatBubble: UITableViewCell {
         )
         
         containerView.heightAnchor.constraint(
-            equalTo: chatBoxView.heightAnchor,
+            equalTo: chatContainer.heightAnchor,
             multiplier: 1
         ).isActive = true
         
+        chatContainer.anchor(
+            top: chatBoxView.topAnchor,
+            leading: nil,
+            bottom: fromLabel.bottomAnchor,
+            trailing: nil
+        )
+                
+        
+        cornerBox.constrainHeight(constant: 8)
+        cornerBox.constrainWidth(constant: 8)
         chatBoxViewConstraints()
         
         messageLabel.anchor(

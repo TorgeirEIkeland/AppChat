@@ -11,17 +11,17 @@ import Firebase
 class NewMessageController: UITableViewController {
     let cellID = "CellID"
     var users = [User]()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         navigationItems()
         fetchUser()
         
-        tableView.register(UserCell.self, forCellReuseIdentifier: cellID)
-
+        tableView.register(UsersTableViewCell.self, forCellReuseIdentifier: cellID)
+        
     }
-
+    
     @objc func handleCancel(){
         print("Operation canceled")
         self.navigationController?.popViewController(animated: true)
@@ -41,7 +41,9 @@ class NewMessageController: UITableViewController {
             
             if let dictionary = snapshot.value as? [String: AnyObject] {
                 let user = User(dictionary: dictionary)
-                self.users.append(user)
+                if user.id != Auth.auth().currentUser?.uid {
+                    self.users.append(user)
+                }
             }
             
             DispatchQueue.main.async(execute: {
@@ -56,24 +58,27 @@ class NewMessageController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
-        
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: cellID, for: indexPath
+        ) as! UsersTableViewCell
         let user = users[indexPath.row]
-        cell.textLabel?.text = user.name
-        cell.detailTextLabel?.text = user.email
+        
+        cell.nameTextLabel.text = user.name
+        cell.subText.text = user.email
+        
         
         return cell
     }
     
-}
-
-
-class UserCell: UITableViewCell {
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super .init(style: .subtitle, reuseIdentifier: reuseIdentifier)
+    var messagesController: MessagesController?
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        dismiss(animated: true, completion: {
+            print("Controller dismissed")
+            let user = self.users[indexPath.row]
+            self.messagesController?.showChatControllerForUser(user: user)
+        })
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 }
